@@ -147,6 +147,11 @@ Unless custom actions are defined, the engine should simply evaluate the defined
  - returnOnTrue
  - returnOnFalse
 
+## Rules Documents storage
+Rules can be store in DocumentDB
+
+
+
 ## Examples
 ### basic
 ```json
