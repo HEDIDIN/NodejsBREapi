@@ -27,7 +27,7 @@ A NodejsBREapi compliant file is a JSON document that contains an array that is 
 ```
 Each rule object in the array is defined by the following main properties:
 
- - id: *optional*
+ - id: *required*
  - description: *optional*
  - rule: **required**
     - property: **required**
@@ -148,7 +148,88 @@ Unless custom actions are defined, the engine should simply evaluate the defined
  - returnOnFalse
 
 ## Examples
-- [simple_example.json](../../raw/master/examples/simple_example.json)
- - [advanced_example.json](../../raw/master/examples/advanced_example.json)
+### basic
+```json
+[
+    {
+        "id": "Rule1",
+        "description": "Check MyObject.zip is a proper Zipcode",
+        "rule": {
+            "property":"MyObject.zip",
+            "condition":"zipcode"
+        },
+        "actions": [
+            {
+                "callOnFalse": "rejectZip",
+                "args": [ "MyObject.zip" ]
+            },
+            {
+                "callOnTrue": "acceptZip",
+                "args": []
+            }
+        ]
+    },
+    {
+        "id": "Rule2",
+        "description": "Check MyObject.name equals Foo",
+        "rule": {
+            "property":"MyObject.name",
+            "condition":"equal",
+            "value":"Foo"
+        },
+        "actions": [
+            { "returnOnFalse": "No, name was not Foo" },
+            { "returnOnTrue": "Yes, name is Foo" }
+        ]
+    }
+]
+```
+
+### advanced 
+```json
+[
+    {
+        "id": "Rule1",
+        "description": "If MyObject.zip is a zipcode, then MyObject.state should not be empty",
+        "rule": {
+            "if": {
+                "property":"MyObject.zip",
+                "condition":"zipcode"
+            },
+            "then": {
+                "property":"MyObject.state",
+                "condition":"not_empty"
+            }
+        },
+        "actions": []
+    },
+    {
+        "id": "Rule2",
+        "description": "If MyObject.first_name=Oscar, and MyObject.last_name=Meyer, then MyObject.type should = wiener",
+        "rule": {
+            "if": {
+                "and": [
+                    {
+                        "property":"MyObject.first_name",
+                        "condition":"equal",
+                        "value":"Oscar"
+                    },
+                    {
+                        "property":"MyObject.last_name",
+                        "condition":"equal",
+                        "value":"Meyer"
+                    }
+                ]
+            },
+            "then": {
+                "property":"MyObject.type",
+                "condition":"equal",
+                "value":"wiener"
+            }
+        },
+        "actions": []
+    }
+]
+```
  
 
