@@ -1,0 +1,14 @@
+﻿{
+  "$schema": "http://json-schema.org/schemas/2014-11-01/apiapp.json#",
+  "id": "NodejsBREapi",
+  "namespace": "microsoft.com",
+  "gateway": "2015-01-14",
+  "version": "1.0.1",
+  "title": "JSON BRE Api",
+  "summary": "Allows you to validate JSON Business Rules.",
+  "author": "Howard S. Edidin",
+  "endpoints": {
+    "apiDefinition": "/swagger/docs/v1",
+    "status": null
+  }
+}
